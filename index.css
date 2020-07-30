@@ -1,0 +1,78 @@
+div#container {
+  width: 1201px;
+  position: relative;
+  margin: 0 auto 0 auto;
+  text-align: left;
+  background-color: #1f1f23;
+}
+body {
+  color: #000000;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 1.1875;
+  margin: 0;
+  text-align: center;
+  background-color: #1f1f23;
+}
+
+#myCanvas {
+  background-color: #32cd32;
+}
+#PageHeader1 {
+  background-color: #571182;
+  background-image: none;
+  box-sizing: border-box;
+}
+
+#wb_title {
+  background-color: transparent;
+  background-image: none;
+  border: 0px solid #fbfbfb;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+#wb_title div {
+  text-align: center;
+}
+
+#connect_btn {
+  border: 1px solid #a52a2a;
+  border-radius: 8px;
+  background-color: #32cd32;
+  background-image: none;
+  color: #ffffff;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 17px;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#disconnect_btn {
+  border: 1px solid #a52a2a;
+  border-radius: 8px;
+  background-color: #a52a2a;
+  background-image: none;
+  color: #ffffff;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 17px;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#status {
+  border: 0px solid #cccccc;
+  background-color: transparent;
+  background-image: none;
+  color: #4682b4;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 32px;
+  padding: 4px 4px 4px 4px;
+  margin: 0;
+  text-align: center;
+  vertical-align: top;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <!-- prettier-ignore -->
+  <head>
+    <meta charset="utf-8">
+    <title>Be Right Back</title>
+    <meta name="description" content="Be Right Back">
+    <meta name="author" content="EdgarMelons">
+    <link href="index.css" rel="stylesheet">
+    <script src="https://unpkg.com/twitch-js@2.0.0-beta.33/dist/twitch.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.0.8/purify.min.js"></script>
+    <script src="./index.js" type="module"></script>
+    <script src="./TwitchApi.js" type="module"></script>
+    <script src="./Game.js" type="module"></script>
+    <scriip src="./User.js" type="module"></scriip>
+    
+    <script src="purify.min.js"></script>
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
+
+    <img id="ceremorFaceChill" src="images/ceremorFaceChill.png" style="display:none"/>
+    <img id="ceremorFaceTense" src="images/ceremorFaceTense.png" style="display:none"/>
+    <img id="ceremorFaceCrazy" src="images/ceremorFaceCrazy.png" style="display:none"/>
+    <img id="ceremorFaceLove" src="images/ceremorFaceLove.png" style="display:none"/>
+    <img id="ceremorFaceAngel" src="images/ceremorFaceAngel.png" style="display:none"/>
+    <img id="bitsImage" src="images/bitsImage.png" style="display:none"/>
+    <img id="ceremorOver" src="images/ceremorOver.png" style="display:none"/>
+    <img id="ceremorOver2" src="images/ceremorOver2.png" style="display:none"/>
+    <img id="ceremorOver3" src="images/ceremorOver3.png" style="display:none"/>
+    <img id="ceremorOver4" src="images/ceremorOver4.png" style="display:none"/>
+    <img id="bullet" src="images/bullet.png" style="display:none"/>
+    <img id="enemyBullet" src="images/enemyBullet.png" style="display:none"/>
+    <img id="fence" src="images/camoFence.png" style="display:none"/>
+    <img id="fence2" src="images/camoFence2.png" style="display:none"/>
+    <img id="fence3" src="images/camoFence3.png" style="display:none"/>
+    <img id="fence4" src="images/camoFence4.png" style="display:none"/>
+    <img id="fence5" src="images/camoFence5.png" style="display:none"/>
+    <img id="zombie1" src="images/zombie1.png" style="display:none"/>
+    <img id="zombie2" src="images/zombie2.png" style="display:none"/>
+    <audio id="gunshot" src="./sounds/gunshot.wav"></audio>
+    <audio id="footstep" src="./sounds/footstep.wav"></audio>
+    <audio id="baserScream" src="./sounds/baserScream.wav"></audio>
+    <audio id="ceremorScream" src="./sounds/ceremorScream.wav"></audio>
+    <audio id="impact" src="./sounds/impact.wav"></audio>
+    <audio id="victory" src="./sounds/victory.wav"></audio>
+    <audio id="failure" src="./sounds/failure.wav"></audio>
+
+
+    
+    
+</head>
+  <!-- prettier-ignore -->
+  <body>
+    <div id="container">
+        <div id="canvasplate">
+            <canvas id="gameScreen" width="800" height="450" style="background: url('./images/backImage.png');border:5px solid purple;position:absolute;top:100px;z-index:45;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+    </div>
+        <label id="status" style="position:absolute;left:200px;top:600px;width:455px;height:62px;line-height:62px;z-index:47;">???</label>
+    </div>
+
+    <div id="PageHeader1" style="position:absolute;text-align:left;left:0px;top:0px;width:100%;height:92px;z-index:7777;">
+        <div id="wb_title" style="position:absolute;left:360px;top:17px;width:486px;height:59px;text-align:center;z-index:1;">
+            <span style="color:#FBFBFB;font-family:'MS Sans Serif';font-size:48px;"><strong>Be Right Back</strong></span></div>
+        <div id="wb_Text1" style="position:absolute;left:830px;top:62px;width:42px;height:30px;text-align:center;z-index:3;"></div>
+    </div>
+    
+</body>
+</html>
