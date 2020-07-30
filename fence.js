@@ -48,7 +48,7 @@ export default class Fence {
         var newBullet = new EnemyBullet(
           this.game,
           this,
-          this.bulletSpeedModifier + this.brokenStatus / 10
+          this.bulletSpeedModifier + this.brokenStatus / 12
         );
         this.bullets.push(newBullet);
         this.shootingInterval =

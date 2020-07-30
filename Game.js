@@ -39,18 +39,18 @@ export default class Game {
     ) {
       return;
     }
-    if (this.fences.length <= 12 && this.fences.length > 6) {
+    if (this.fences.length <= 15 && this.fences.length > 7) {
       this.fences.forEach((fence) => {
         fence.intervalUpper = 30;
         fence.intervalLower = 12;
-        fence.bulletSpeedModifier = 0.4;
+        fence.bulletSpeedModifier = 0.32;
       });
     }
-    if (this.fences.length <= 5) {
+    if (this.fences.length <= 7) {
       this.fences.forEach((fence) => {
         fence.intervalUpper = 25;
         fence.intervalLower = 11;
-        fence.bulletSpeedModifier = 0.5;
+        fence.bulletSpeedModifier = 0.35;
       });
     }
     this.gameObjects = [this.player, ...this.fences, ...this.player.bullets];
