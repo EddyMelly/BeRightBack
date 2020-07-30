@@ -86,6 +86,14 @@ export default class Game {
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
       ctx.fillText('CHAT LOSES!!', this.gameWidth / 2, this.gameHeight / 2);
+      ctx.font = '12px Monospace';
+      ctx.fillStyle = 'white';
+      ctx.textAlign = 'center';
+      ctx.fillText(
+        'Stop griefing our base!',
+        this.gameWidth / 2,
+        this.gameHeight / 2 + 30
+      );
       if (
         this.gamestate == GAMESTATE.GAMEOVER &&
         this.restartStatus === false
@@ -101,6 +109,14 @@ export default class Game {
       ctx.fillStyle = 'white';
       ctx.textAlign = 'center';
       ctx.fillText('CHAT WINS!!', this.gameWidth / 2, this.gameHeight / 2);
+      ctx.font = '12px Monospace';
+      ctx.fillStyle = 'white';
+      ctx.textAlign = 'center';
+      ctx.fillText(
+        'You were banned from the server.',
+        this.gameWidth / 2,
+        this.gameHeight / 2 + 30
+      );
       if (this.gamestate == GAMESTATE.VICTORY && this.restartStatus === false) {
         this.victory(ctx);
       }
