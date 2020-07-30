@@ -13,7 +13,7 @@ export default class Fence {
     this.brokenStatus = 1;
     this.bulletSpeedModifier = 0.3;
     this.timer = 0;
-    this.intervalLower = 15;
+    this.intervalLower = 13;
     this.intervalUpper = 35;
     this.shootingInterval =
       Math.floor(Math.random() * this.intervalUpper) + this.intervalLower;

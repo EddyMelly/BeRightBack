@@ -42,14 +42,14 @@ export default class Game {
     if (this.fences.length <= 12 && this.fences.length > 6) {
       this.fences.forEach((fence) => {
         fence.intervalUpper = 30;
-        fence.intervalLower = 14;
+        fence.intervalLower = 12;
         fence.bulletSpeedModifier = 0.4;
       });
     }
     if (this.fences.length <= 5) {
       this.fences.forEach((fence) => {
         fence.intervalUpper = 25;
-        fence.intervalLower = 13;
+        fence.intervalLower = 11;
         fence.bulletSpeedModifier = 0.5;
       });
     }
