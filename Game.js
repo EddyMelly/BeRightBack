@@ -43,14 +43,14 @@ export default class Game {
       this.fences.forEach((fence) => {
         fence.intervalUpper = 30;
         fence.intervalLower = 14;
-        fence.bulletSpeedModifier = 0.3;
+        fence.bulletSpeedModifier = 0.4;
       });
     }
     if (this.fences.length <= 5) {
       this.fences.forEach((fence) => {
         fence.intervalUpper = 25;
         fence.intervalLower = 13;
-        fence.bulletSpeedModifier = 0.4;
+        fence.bulletSpeedModifier = 0.5;
       });
     }
     this.gameObjects = [this.player, ...this.fences, ...this.player.bullets];

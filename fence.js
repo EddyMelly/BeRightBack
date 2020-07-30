@@ -11,7 +11,7 @@ export default class Fence {
     this.height = 50;
     this.markedForDeletion = false;
     this.brokenStatus = 1;
-    this.bulletSpeedModifier = 0.2;
+    this.bulletSpeedModifier = 0.3;
     this.timer = 0;
     this.intervalLower = 15;
     this.intervalUpper = 35;
