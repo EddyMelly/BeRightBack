@@ -16,14 +16,14 @@ export default class Zombie {
         x: player.position.x + 400,
         y: player.position.y - 400,
       };
-      this.image = document.getElementById('ceremorBanned');
+      this.image = document.getElementById('zombie1');
     } else {
       this.speed = { x: 0.35, y: 0.35 };
       this.position = {
         x: player.position.x - 400,
         y: player.position.y - 400,
       };
-      this.image = document.getElementById('ceremorBanned');
+      this.image = document.getElementById('zombie2');
     }
 
     this.size = 50;

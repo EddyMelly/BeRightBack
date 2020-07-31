@@ -69,31 +69,10 @@ export default class Game {
     this.gameObjects.forEach((object) => object.draw(ctx));
 
     if (this.gamestate == GAMESTATE.PAUSED) {
-      ctx.rect(200, 100, this.gameWidth / 2, this.gameHeight / 2);
-      ctx.fillStyle = 'rgba(0,0,0,0.5)';
-      ctx.fill();
-
-      ctx.font = '35px Monospace';
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
-      ctx.fillText('Paused', this.gameWidth / 2, this.gameHeight / 2);
+      this.displayMessage(ctx, 'rgba(0,0,0,0.5)', {main: "PAUSED", subtitle: "Game is paused"});
     }
     if (this.gamestate == GAMESTATE.GAMEOVER) {
-      ctx.rect(200, 100, this.gameWidth / 2, this.gameHeight / 2);
-      ctx.fillStyle = 'rgba(51,0,0,0.75)';
-      ctx.fill();
-      ctx.font = '35px Monospace';
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
-      ctx.fillText('CHAT LOSES!!', this.gameWidth / 2, this.gameHeight / 2);
-      ctx.font = '12px Monospace';
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
-      ctx.fillText(
-        'Stop being a jerk!!',
-        this.gameWidth / 2,
-        this.gameHeight / 2 + 30
-      );
+      this.displayMessage(ctx,'rgba(51,0,0,0.75', {main: "CHAT LOSES!!", subtitle:"Stop being a jerk!"});
       if (
         this.gamestate == GAMESTATE.GAMEOVER &&
         this.restartStatus === false
@@ -102,27 +81,27 @@ export default class Game {
       }
     }
     if (this.gamestate == GAMESTATE.VICTORY) {
-      ctx.rect(200, 100, this.gameWidth / 2, this.gameHeight / 2);
-      ctx.fillStyle = 'rgba(0,102,51,0.75)';
-      ctx.fill();
-      ctx.font = '35px Monospace';
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
-      ctx.fillText('CHAT WINS!!', this.gameWidth / 2, this.gameHeight / 2);
-      ctx.font = '12px Monospace';
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
-      ctx.fillText(
-        'You were banned from the server.',
-        this.gameWidth / 2,
-        this.gameHeight / 2 + 30
-      );
+      this.displayMessage(ctx, 'rgba(0,102,51,0.75)', {main:"CHAT WINS!", subtitle:"You were banned from this server."});
       if (this.gamestate == GAMESTATE.VICTORY && this.restartStatus === false) {
         this.victory(ctx);
       }
     }
   }
-  gameOver(ctx) {
+
+
+  displayMessage(ctx,rgbValue, message){
+    ctx.rect(200, 100, this.gameWidth / 2, this.gameHeight / 2);
+    ctx.fillStyle = rgbValue;
+    ctx.fill();
+    ctx.font = "35px Monospace";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText(message.main, this.gameWidth / 2, this.gameHeight / 2);
+    ctx.font = "12px Monospace";
+    ctx.fillText(message.subtitle, this.gameWidth /2, this.gameHeight /2 + 30);
+  }
+
+  gameOver() {
     this.playSound(this.failureTune);
     this.restartStatus = true;
     setTimeout(function () {
@@ -131,7 +110,7 @@ export default class Game {
     }, 10000);
   }
 
-  victory(ctx) {
+  victory() {
     this.playSound(this.victoryTune);
     this.restartStatus = true;
     setTimeout(function () {
