@@ -39,11 +39,11 @@ export default class Game {
     ) {
       return;
     }
-    if (this.fences.length <= 15 && this.fences.length > 7) {
+    if (this.fences.length <= 11 && this.fences.length > 7) {
       this.fences.forEach((fence) => {
         fence.intervalUpper = 30;
         fence.intervalLower = 12;
-        fence.bulletSpeedModifier = 0.32;
+        fence.bulletSpeedModifier = 0.30;
       });
     }
     if (this.fences.length <= 7) {

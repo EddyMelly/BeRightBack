@@ -11,10 +11,10 @@ export default class Fence {
     this.height = 50;
     this.markedForDeletion = false;
     this.brokenStatus = 1;
-    this.bulletSpeedModifier = 0.3;
+    this.bulletSpeedModifier = 0.25;
     this.timer = 0;
     this.intervalLower = 13;
-    this.intervalUpper = 35;
+    this.intervalUpper = 30;
     this.shootingInterval =
       Math.floor(Math.random() * this.intervalUpper) + this.intervalLower;
     this.bullets = [];

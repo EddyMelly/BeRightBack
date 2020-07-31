@@ -18,7 +18,7 @@ export function buildLevel(game, level) {
 }
 
 export const level1 = [
-  [1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 0, 0, 1, 1, 0, 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1],
   [0, 1, 1, 0, 0, 1, 1, 0],
 ];

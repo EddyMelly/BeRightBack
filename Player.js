@@ -59,8 +59,8 @@ export default class Player {
 
   callZombie() {
     if (this.position.x >= 200 && this.position.x <= 600) {
-      let randomnumber = Math.floor(Math.random() * 7) + 1;
-      if (randomnumber === 7) {
+      let randomnumber = Math.floor(Math.random() * 6) + 1;
+      if (randomnumber === 6) {
         var newZombie = new Zombie(this, this.game);
         this.zombies.push(newZombie);
       }
