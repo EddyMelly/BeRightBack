@@ -15,7 +15,7 @@ export default class Game {
   constructor(gameWidth, gameHeight) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
-
+    this.lastUser = {username: "unknown", instruction:"unknown"};
     this.player = new Player(this);
     this.fences = buildLevel(this, level1);
     this.restartStatus = false;
@@ -29,6 +29,12 @@ export default class Game {
     this.gameObjects = [this.player, this.fences];
     this.TwitchApi = new TwitchApi('ceremor', this);
     this.TwitchApi.connectTwitchChat();
+  }
+
+  setLastUser(username, instruction){
+    if(this.gamestate === GAMESTATE.RUNNING){
+      this.lastUser = {username: username, instruction: instruction};
+    }
   }
 
   update(deltaTime) {
@@ -67,6 +73,18 @@ export default class Game {
 
   draw(ctx) {
     this.gameObjects.forEach((object) => object.draw(ctx));
+    ctx.font = "12px Monospace";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "left";
+    ctx.fillText(this.lastUser.username, 150, 10);
+
+    if(this.lastUser.instruction === "LEFT"){
+      ctx.drawImage(document.getElementById('leftIcon'), 130, 0 , 12, 12);
+    }else if(this.lastUser.instruction === "RIGHT"){
+      ctx.drawImage(document.getElementById('rightIcon'), 130, 0 , 12, 12);
+    }else if(this.lastUser.instruction === "SHOOT"){
+      ctx.drawImage(document.getElementById('bulletIcon'), 130, 0 , 12, 12);
+    }
 
     if (this.gamestate == GAMESTATE.PAUSED) {
       this.displayMessage(ctx, 'rgba(0,0,0,0.5)', {main: "PAUSED", subtitle: "Game is paused"});

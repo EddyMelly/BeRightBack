@@ -22,7 +22,6 @@ export default class Fence {
   update(deltaTime) {
     this.bullets = [...this.bullets];
     this.timer += deltaTime / 1000;
-    //console.log(this.timer);
     if (this.timer > this.shootingInterval) {
       this.timer = 0;
       this.shoot();
@@ -44,7 +43,7 @@ export default class Fence {
 
   shoot() {
     if (this.markedForDeletion === false) {
-      if (this.bullets.length < 25) {
+      if (this.bullets.length < 2) {
         var newBullet = new EnemyBullet(
           this.game,
           this,
@@ -65,23 +64,19 @@ export default class Fence {
         this.playSound(this.impact);
         break;
       case 2:
-        this.image = document.getElementById('fence3');
-        this.brokenStatus++;
-        this.playSound(this.impact);
-        break;
-      case 3:
         this.image = document.getElementById('fence4');
         this.brokenStatus++;
         this.playSound(this.impact);
         break;
-      case 4:
+      case 3:
         this.image = document.getElementById('fence5');
         this.brokenStatus++;
         this.playSound(this.impact);
         break;
-      case 5:
+      case 4:
         this.playSound(this.baserScream);
         this.markedForDeletion = true;
+        
     }
   }
 

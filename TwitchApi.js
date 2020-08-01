@@ -46,24 +46,29 @@ export default class TwitchApi {
       var clean_message = DOMPurify.sanitize(message.message, {
         ALLOWED_TAGS: ['b'],
       });
-      this.clean_username = DOMPurify.sanitize(message.username, {
+      var clean_username = DOMPurify.sanitize(message.username, {
         ALLOWED_TAGS: ['b'],
       });
-      this.decideMessage(clean_message, message.tags['badgeInfo']);
+      this.decideMessage(clean_message, message.tags['badgeInfo'], clean_username);
     });
   }
 
-  decideMessage(cleanMessage, subBadge) {
+  decideMessage(cleanMessage, subBadge, cleanUserName) {
     var uppercaseMessage = cleanMessage.toUpperCase();
+    var uppercaseUserName = cleanUserName.toUpperCase();
+    var upperCaseMessageClean = uppercaseMessage.replace(/ .*/,'');
     if (this.subCheck(subBadge)) {
-      if (uppercaseMessage === 'LEFT') {
+      if (upperCaseMessageClean === 'LEFT') {
         this.game.player.moveLeft();
+        this.game.setLastUser(uppercaseUserName, 'LEFT');
       }
-      if (uppercaseMessage === 'RIGHT') {
+      if (upperCaseMessageClean === 'RIGHT') {
         this.game.player.moveRight();
+        this.game.setLastUser(uppercaseUserName, 'RIGHT');
       }
-      if (uppercaseMessage.includes('SHOOT')) {
+      if (upperCaseMessageClean === 'SHOOT') {
         this.game.player.shoot();
+        this.game.setLastUser(uppercaseUserName, 'SHOOT');
       }
     }
   }
