@@ -8,7 +8,7 @@ export default class PowerUp{
         }else{
             this.position = {x: 50, y: this.player.position.y};
         }
-        this.image = document.getElementById('ceremorBanned');
+        this.image = document.getElementById('ceremorTense');
         this.active = true;
         this.appearTime = 10;
         this.appearTimeStart = 0;
