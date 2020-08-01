@@ -53,3 +53,14 @@ export function zombieBulletCollision(zombie, bullet) {
     return false;
   }
 }
+
+export function powerUpCollision(player, powerup){
+  //if  powerup position.x between player position x and player position x + size
+  
+  if(powerup.position.x >= player.position.x && 
+    powerup.position.x < player.position.x + player.width){
+      return true;
+    }else{
+      return false;
+    }
+}
