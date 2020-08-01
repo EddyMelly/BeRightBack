@@ -1,5 +1,9 @@
 import { detectCollision } from './collisionDetection.js';
 import EnemyBullet from './enemyBullet.js';
+const FENCE2 = document.getElementById('fence2');
+const FENCE3 = document.getElementById('fence4');
+const FENCE4 = document.getElementById('fence5');
+
 export default class Fence {
   constructor(game, position) {
     this.image = document.getElementById('fence');
@@ -43,7 +47,7 @@ export default class Fence {
 
   shoot() {
     if (this.markedForDeletion === false) {
-      if (this.bullets.length < 2) {
+      if (this.bullets.length < 4) {
         var newBullet = new EnemyBullet(
           this.game,
           this,
@@ -59,17 +63,17 @@ export default class Fence {
   break(brokenStatus) {
     switch (brokenStatus) {
       case 1:
-        this.image = document.getElementById('fence2');
+        this.image = FENCE2;
         this.brokenStatus++;
         this.playSound(this.impact);
         break;
       case 2:
-        this.image = document.getElementById('fence4');
+        this.image = FENCE3;
         this.brokenStatus++;
         this.playSound(this.impact);
         break;
       case 3:
-        this.image = document.getElementById('fence5');
+        this.image = FENCE4;
         this.brokenStatus++;
         this.playSound(this.impact);
         break;

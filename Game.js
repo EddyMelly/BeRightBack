@@ -47,15 +47,15 @@ export default class Game {
     }
     if (this.fences.length <= 11 && this.fences.length > 7) {
       this.fences.forEach((fence) => {
-        fence.intervalUpper = 30;
-        fence.intervalLower = 12;
+        fence.intervalUpper = 25;
+        fence.intervalLower = 11;
         fence.bulletSpeedModifier = 0.30;
       });
     }
     if (this.fences.length <= 7) {
       this.fences.forEach((fence) => {
-        fence.intervalUpper = 25;
-        fence.intervalLower = 11;
+        fence.intervalUpper = 20;
+        fence.intervalLower = 9;
         fence.bulletSpeedModifier = 0.35;
       });
     }
