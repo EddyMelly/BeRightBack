@@ -16,7 +16,7 @@ export default class PowerUp{
 
     update(deltaTime){
         this.appearTimeStart += deltaTime /1000;
-        if(this.appearTimeStart > 12){
+        if(this.appearTimeStart > 14){
             this.active = false;
         }
         if(powerUpCollision(this.player, this)){
