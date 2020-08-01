@@ -1,5 +1,6 @@
 import { detectCollision } from './collisionDetection.js';
 import EnemyBullet from './enemyBullet.js';
+import {playSound} from './playSound.js';
 const FENCE2 = document.getElementById('fence2');
 const FENCE3 = document.getElementById('fence4');
 const FENCE4 = document.getElementById('fence5');
@@ -65,31 +66,25 @@ export default class Fence {
       case 1:
         this.image = FENCE2;
         this.brokenStatus++;
-        this.playSound(this.impact);
+        playSound(this.impact);
         break;
       case 2:
         this.image = FENCE3;
         this.brokenStatus++;
-        this.playSound(this.impact);
+        playSound(this.impact);
         break;
       case 3:
         this.image = FENCE4;
         this.brokenStatus++;
-        this.playSound(this.impact);
+        playSound(this.impact);
         break;
       case 4:
-        this.playSound(this.baserScream);
+        playSound(this.baserScream);
         this.markedForDeletion = true;
         
     }
   }
 
-  playSound(sound) {
-    let playSound = sound;
-    playSound.volume = 0.4;
-    playSound.load();
-    playSound.play();
-  }
 
   draw(ctx) {
     ctx.drawImage(

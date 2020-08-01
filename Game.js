@@ -3,6 +3,7 @@ import InputHandler from './Input.js';
 import Player from './Player.js';
 import { restart } from './index.js';
 import { buildLevel, level1 } from './levels.js';
+import {playSound} from './playSound.js';
 
 const GAMESTATE = {
   PAUSED: 0,
@@ -120,7 +121,7 @@ export default class Game {
   }
 
   gameOver() {
-    this.playSound(this.failureTune);
+    playSound(this.failureTune);
     this.restartStatus = true;
     setTimeout(function () {
       restart();
@@ -129,7 +130,7 @@ export default class Game {
   }
 
   victory() {
-    this.playSound(this.victoryTune);
+    playSound(this.victoryTune);
     this.restartStatus = true;
     setTimeout(function () {
       restart();
@@ -137,12 +138,7 @@ export default class Game {
     }, 10000);
   }
 
-  playSound(sound) {
-    let playSound = sound;
-    playSound.volume = 0.4;
-    playSound.load();
-    playSound.play();
-  }
+  
 
   togglePause() {
     if (this.gamestate == GAMESTATE.PAUSED) {

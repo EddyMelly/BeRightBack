@@ -1,6 +1,7 @@
 import Bullet from './bullet.js';
 import Zombie from './zombie.js';
 import PowerUp from './powerUp.js';
+import {playSound} from './playSound.js';
 
 const GAMESTATE = {
   PAUSED: 0,
@@ -37,20 +38,20 @@ export default class Player {
   moveLeft() {
     this.position.x = this.position.x - this.width;
     this.canFire = true;
-    this.playSound(FOOTSTEP);
+    playSound(FOOTSTEP);
   }
 
   moveRight() {
     this.position.x = this.position.x + this.width;
     this.canFire = true;
-    this.playSound(FOOTSTEP);
+    playSound(FOOTSTEP);
   }
 
   shoot() {
     if (this.canFire === true && this.powerUp.active === false) {
       var newBullet = new Bullet(this.game, this);
       this.bullets.push(newBullet);
-      this.playSound(GUNSHOT);
+      playSound(GUNSHOT);
       this.callZombie();
       this.spawnPowerUp();
     }
@@ -58,7 +59,7 @@ export default class Player {
   }
   automaticOn(){
     this.powerUp.active = true;
-    this.playSound(POWERUPSOUND);
+    playSound(POWERUPSOUND);
   }
 
   spawnPowerUp(){
@@ -77,7 +78,7 @@ export default class Player {
       if(this.powerUpTimer > this.powerUp.firerate){
       var newBullet = new Bullet(this.game, this);
       this.bullets.push(newBullet);
-      this.playSound(GUNSHOT);
+      playSound(GUNSHOT);
       this.powerUpTimer = 0;
       this.powerUp.totalFire++;
       }
@@ -87,11 +88,6 @@ export default class Player {
     }
   }
 
-  playSound(sound) {
-    let playSound = sound;
-    playSound.volume = 0.4;
-    playSound.play();
-  }
 
   callZombie() {
     if (this.position.x >= 200 && this.position.x <= 600) {
@@ -107,17 +103,17 @@ export default class Player {
     switch (this.hurtStatus) {
       case 1:
         this.image = document.getElementById('ceremorOver2');
-        this.playSound(this.ceremorScream);
+        playSound(this.ceremorScream);
         this.hurtStatus++;
         break;
       case 2:
         this.image = document.getElementById('ceremorOver3');
-        this.playSound(this.ceremorScream);
+        playSound(this.ceremorScream);
         this.hurtStatus++;
         break;
       case 3:
         this.image = document.getElementById('ceremorOver4');
-        this.playSound(this.ceremorScream);
+        playSound(this.ceremorScream);
         this.hurtStatus++;
         break;
       case 4:
