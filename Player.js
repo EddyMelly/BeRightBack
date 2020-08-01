@@ -8,7 +8,6 @@ const GAMESTATE = {
   GAMEOVER: 3,
 };
 
-
 export default class Player {
   constructor(game) {
     this.width = 50;
@@ -101,14 +100,14 @@ export default class Player {
   draw(ctx) {
     ctx.drawImage(this.image, this.position.x, this.position.y, 50, 50);
     this.zombies.forEach((object) => object.draw(ctx));
-   
-
   }
 
   update(deltaTime) {
     if (this.game.gamestate == GAMESTATE.PAUSED) {
       return;
     }
+
+
     
     
     this.bullets = [...this.bullets];

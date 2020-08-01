@@ -90,7 +90,7 @@ export default class Game {
       this.displayMessage(ctx, 'rgba(0,0,0,0.5)', {main: "PAUSED", subtitle: "Game is paused"});
     }
     if (this.gamestate == GAMESTATE.GAMEOVER) {
-      this.displayMessage(ctx,'rgba(51,0,0,0.75', {main: "CHAT LOSES!!", subtitle:"Stop being a jerk!"});
+      this.displayMessage(ctx,'rgba(51,0,0,0.75', {main: "CHAT LOSES!!", subtitle:this.lastUser.username +" ruined everything"});
       if (
         this.gamestate == GAMESTATE.GAMEOVER &&
         this.restartStatus === false
@@ -115,7 +115,7 @@ export default class Game {
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
     ctx.fillText(message.main, this.gameWidth / 2, this.gameHeight / 2);
-    ctx.font = "12px Monospace";
+    ctx.font = "18px Monospace";
     ctx.fillText(message.subtitle, this.gameWidth /2, this.gameHeight /2 + 30);
   }
 
