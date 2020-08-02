@@ -95,6 +95,7 @@ export default class Player {
         this.powerUp = { active: false, firerate: 0.8, totalFire: 0 };
       }
     }
+    this.tripleFire = 0;
   }
 
   fasterBullets() {
