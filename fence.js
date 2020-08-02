@@ -81,8 +81,9 @@ export default class Fence {
       case 4:
         playSound(this.baserScream);
         this.markedForDeletion = true;
-        if (Math.floor(Math.random() * 3) + 1 === 3) {
-          this.game.player.automaticOn();
+        this.game.player.fasterBullets();
+        if (Math.random() >= 0.66) {
+          this.game.player.tripleFireOn();
         }
     }
   }

@@ -23,19 +23,23 @@ export default class Bullet {
     );
   }
 
+  setDiagonal(direction) {
+    if (direction === 'left') {
+      this.speed = { x: -0.2, y: -1 };
+    } else {
+      this.speed = { x: 0.2, y: -1 };
+    }
+  }
+
   update(deltaTime) {
     this.position.x += this.speed.x;
-    this.position.y += this.speed.y;
+    this.position.y += this.speed.y - this.player.bulletSpeedMultiplier;
 
     if (this.markedForDeletion === true) {
       this.position = { x: 451, y: 801 };
       this.speed = { x: 0, y: 40 };
     }
 
-    //check hit on left or right of area
-    if (this.position.x + this.size > this.gameWidth || this.position.x < 0) {
-      this.speed.x = -this.speed.x;
-    }
     //check hit on top or bottom of area
     if (this.position.y + this.size > this.gameHeight || this.position.y < 0) {
       this.markedForDeletion = true;

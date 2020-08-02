@@ -33,6 +33,8 @@ export default class Player {
     this.position = { x: xPosition, y: yPosition };
     this.powerUp = { active: false, firerate: 0.8, totalFire: 0 };
     this.powerUpTimer = 0;
+    this.bulletSpeedMultiplier = 0;
+    this.tripleFire = 0;
   }
 
   moveLeft() {
@@ -54,6 +56,9 @@ export default class Player {
       playSound(GUNSHOT);
       this.callZombie();
       this.spawnPowerUp();
+      if (this.tripleFire > 0) {
+        this.tripleBullet();
+      }
     }
     this.canFire = false;
   }
@@ -71,6 +76,10 @@ export default class Player {
       }
     }
   }
+  tripleFireOn() {
+    this.tripleFire = 3;
+    playSound(POWERUPSOUND);
+  }
 
   automatic(deltaTime) {
     if (this.powerUp) {
@@ -86,6 +95,22 @@ export default class Player {
         this.powerUp = { active: false, firerate: 0.8, totalFire: 0 };
       }
     }
+  }
+
+  fasterBullets() {
+    this.bulletSpeedMultiplier = this.bulletSpeedMultiplier + 0.1;
+  }
+
+  tripleBullet() {
+    var newBulletLeft = new Bullet(this.game, this);
+    newBulletLeft.setDiagonal('left');
+    var newBulletRight = new Bullet(this.game, this);
+    newBulletRight.setDiagonal('right');
+    this.bullets.push(newBulletLeft);
+    this.bullets.push(newBulletRight);
+    playSound(GUNSHOT);
+    this.spawnPowerUp();
+    this.tripleFire--;
   }
 
   callZombie() {
