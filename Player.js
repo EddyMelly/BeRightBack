@@ -1,7 +1,7 @@
 import Bullet from './bullet.js';
 import Zombie from './zombie.js';
 import PowerUp from './powerUp.js';
-import {playSound} from './playSound.js';
+import { playSound } from './playSound.js';
 
 const GAMESTATE = {
   PAUSED: 0,
@@ -31,7 +31,7 @@ export default class Player {
     this.zombies = [];
     this.powerUpSpawn = null;
     this.position = { x: xPosition, y: yPosition };
-    this.powerUp = {active: false, firerate: 0.8, totalFire:0};
+    this.powerUp = { active: false, firerate: 0.8, totalFire: 0 };
     this.powerUpTimer = 0;
   }
 
@@ -57,37 +57,36 @@ export default class Player {
     }
     this.canFire = false;
   }
-  automaticOn(){
+  automaticOn() {
     this.powerUp.active = true;
     playSound(POWERUPSOUND);
   }
 
-  spawnPowerUp(){
-    let randomNumber = Math.floor(Math.random() * 17) + 1;
-    if(randomNumber === 15){
-      if(this.powerUpSpawn === null){
-      var newPowerUp = new PowerUp(this.game, this);
-      this.powerUpSpawn = newPowerUp;
+  spawnPowerUp() {
+    let randomNumber = Math.floor(Math.random() * 10) + 1;
+    if (randomNumber === 9) {
+      if (this.powerUpSpawn === null) {
+        var newPowerUp = new PowerUp(this.game, this);
+        this.powerUpSpawn = newPowerUp;
       }
     }
   }
 
-  automatic(deltaTime){
-    if(this.powerUp){
+  automatic(deltaTime) {
+    if (this.powerUp) {
       this.powerUpTimer += deltaTime / 1000;
-      if(this.powerUpTimer > this.powerUp.firerate){
-      var newBullet = new Bullet(this.game, this);
-      this.bullets.push(newBullet);
-      playSound(GUNSHOT);
-      this.powerUpTimer = 0;
-      this.powerUp.totalFire++;
+      if (this.powerUpTimer > this.powerUp.firerate) {
+        var newBullet = new Bullet(this.game, this);
+        this.bullets.push(newBullet);
+        playSound(GUNSHOT);
+        this.powerUpTimer = 0;
+        this.powerUp.totalFire++;
       }
-      if(this.powerUp.totalFire > 8){
-        this.powerUp = {active: false, firerate: 0.8, totalFire:0};
+      if (this.powerUp.totalFire > 8) {
+        this.powerUp = { active: false, firerate: 0.8, totalFire: 0 };
       }
     }
   }
-
 
   callZombie() {
     if (this.position.x >= 200 && this.position.x <= 600) {
@@ -125,12 +124,10 @@ export default class Player {
     this.speed = 0;
   }
 
- 
-
   draw(ctx) {
     ctx.drawImage(this.image, this.position.x, this.position.y, 50, 50);
     this.zombies.forEach((object) => object.draw(ctx));
-    if(this.powerUpSpawn !== null){
+    if (this.powerUpSpawn !== null) {
       this.powerUpSpawn.draw(ctx);
     }
   }
@@ -139,16 +136,16 @@ export default class Player {
     if (this.game.gamestate == GAMESTATE.PAUSED) {
       return;
     }
-    if(this.powerUp.active){
+    if (this.powerUp.active) {
       this.automatic(deltaTime);
     }
-    if(this.powerUpSpawn !== null){
+    if (this.powerUpSpawn !== null) {
       this.powerUpSpawn.update(deltaTime);
-      if(this.powerUpSpawn.active === false){
+      if (this.powerUpSpawn.active === false) {
         this.powerUpSpawn = null;
       }
     }
-    
+
     this.bullets = [...this.bullets];
     this.zombies = [...this.zombies];
 
@@ -160,7 +157,5 @@ export default class Player {
       zombie.update();
     });
     this.zombies = this.zombies.filter((object) => !object.markedForDeletion);
-
-
   }
 }
