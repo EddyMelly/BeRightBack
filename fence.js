@@ -1,6 +1,6 @@
 import { detectCollision } from './collisionDetection.js';
 import EnemyBullet from './enemyBullet.js';
-import {playSound} from './playSound.js';
+import { playSound } from './playSound.js';
 const FENCE2 = document.getElementById('fence2');
 const FENCE3 = document.getElementById('fence4');
 const FENCE4 = document.getElementById('fence5');
@@ -81,10 +81,11 @@ export default class Fence {
       case 4:
         playSound(this.baserScream);
         this.markedForDeletion = true;
-        
+        if (Math.floor(Math.random() * 3) + 1 === 3) {
+          this.game.player.automaticOn();
+        }
     }
   }
-
 
   draw(ctx) {
     ctx.drawImage(
