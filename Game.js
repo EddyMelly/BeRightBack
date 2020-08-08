@@ -131,7 +131,7 @@ export default class Game {
         if (this.fences.length <= 7) {
           this.fences.forEach((fence) => {
             fence.intervalUpper = 20;
-            fence.intervalLower = 19;
+            fence.intervalLower = 10;
             fence.bulletSpeedModifier = 0.35;
           });
         }
