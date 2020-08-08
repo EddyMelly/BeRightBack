@@ -87,7 +87,7 @@ export class Fence {
         playSound(this.baserScream);
         this.markedForDeletion = true;
         this.game.player.fasterBullets();
-        if (Math.random() >= 0.66) {
+        if (Math.random() >= 0.75) {
           this.game.player.tripleFireOn();
         }
     }
