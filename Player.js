@@ -1,17 +1,30 @@
-import Bullet from './bullet.js';
+import { Bullet, ToxicBullet } from './bullet.js';
 import Zombie from './zombie.js';
-import PowerUp from './powerUp.js';
+import {
+  AutomaticPowerUp,
+  PowerUp,
+  ToxicPowerUp,
+  TriplePowerUp,
+} from './powerUp.js';
 import { playSound } from './playSound.js';
 
 const GAMESTATE = {
   PAUSED: 0,
   RUNNING: 1,
-  MENU: 2,
+  VICTORY: 2,
   GAMEOVER: 3,
+  CUTSCENE: 4,
+  BOSSFIGHT: 5,
+};
+const POWERUPNAME = {
+  AUTOMATIC: 0,
+  TRIPLE: 1,
+  TOXIC: 2,
 };
 const GUNSHOT = document.getElementById('gunshot');
 const FOOTSTEP = document.getElementById('footstep');
 const POWERUPSOUND = document.getElementById('powerUp');
+const TOXICBULLETSOUND = document.getElementById('toxicBulletSound');
 
 export default class Player {
   constructor(game) {
@@ -29,60 +42,148 @@ export default class Player {
     this.canFire = true;
     this.hurtStatus = 1;
     this.zombies = [];
-    this.powerUpSpawn = null;
     this.position = { x: xPosition, y: yPosition };
     this.powerUp = { active: false, firerate: 0.8, totalFire: 0 };
+    this.powerUpSpawn = {
+      active: false,
+      powerUpName: null,
+      powerUpObject: null,
+    };
+    this.powerUpCollected = {
+      collected: false,
+      activated: false,
+      powerUpName: null,
+      powerUpMethod: null,
+    };
     this.powerUpTimer = 0;
     this.bulletSpeedMultiplier = 0;
     this.tripleFire = 0;
   }
 
   moveLeft() {
-    this.position.x = this.position.x - this.width;
-    this.canFire = true;
-    playSound(FOOTSTEP);
+    if (
+      this.game.gamestate === GAMESTATE.RUNNING ||
+      this.game.gamestate === GAMESTATE.BOSSFIGHT
+    ) {
+      this.position.x = this.position.x - this.width;
+      this.canFire = true;
+      playSound(FOOTSTEP);
+    }
   }
 
   moveRight() {
-    this.position.x = this.position.x + this.width;
-    this.canFire = true;
-    playSound(FOOTSTEP);
+    if (
+      this.game.gamestate === GAMESTATE.RUNNING ||
+      this.game.gamestate === GAMESTATE.BOSSFIGHT
+    ) {
+      this.position.x = this.position.x + this.width;
+      this.canFire = true;
+      playSound(FOOTSTEP);
+    }
   }
 
   shoot() {
-    if (this.canFire === true && this.powerUp.active === false) {
-      var newBullet = new Bullet(this.game, this);
-      this.bullets.push(newBullet);
-      playSound(GUNSHOT);
-      this.callZombie();
-      this.spawnPowerUp();
-      if (this.tripleFire > 0) {
-        this.tripleBullet();
+    if (
+      this.game.gamestate === GAMESTATE.RUNNING ||
+      this.game.gamestate === GAMESTATE.BOSSFIGHT
+    ) {
+      if (this.canFire) {
+        switch (this.powerUpCollected.powerUpName) {
+          case POWERUPNAME.TOXIC:
+            this.powerUpCollected.activated = true;
+            this.toxicFire();
+            this.canFire = false;
+            break;
+          case POWERUPNAME.TRIPLE:
+            this.powerUpCollected.activated = true;
+            this.tripleBullet();
+            this.canFire = false;
+            break;
+          case POWERUPNAME.AUTOMATIC:
+            this.powerUpCollected.activated = true;
+            break;
+          default:
+            var newBullet = new Bullet(this.game, this);
+            this.bullets.push(newBullet);
+            playSound(GUNSHOT);
+            this.callZombie();
+            this.spawnPowerUp();
+            this.canFire = false;
+        }
       }
     }
-    this.canFire = false;
   }
+
   automaticOn() {
-    this.powerUp.active = true;
+    this.powerUpCollected = {
+      collected: true,
+      activated: false,
+      powerUpName: POWERUPNAME.AUTOMATIC,
+      powerUpMethod: this.automatic.bind(this),
+    };
     playSound(POWERUPSOUND);
   }
 
-  spawnPowerUp() {
-    let randomNumber = Math.floor(Math.random() * 10) + 1;
-    if (randomNumber === 9) {
-      if (this.powerUpSpawn === null) {
-        var newPowerUp = new PowerUp(this.game, this);
-        this.powerUpSpawn = newPowerUp;
-      }
-    }
+  toxicBulletOn() {
+    this.powerUpCollected = {
+      collected: true,
+      activated: false,
+      powerUpName: POWERUPNAME.TOXIC,
+      powerUpMethod: this.toxicFire.bind(this),
+    };
+    playSound(POWERUPSOUND);
   }
+
   tripleFireOn() {
+    this.powerUpCollected = {
+      collected: true,
+      activated: false,
+      powerUpName: POWERUPNAME.TRIPLE,
+      powerUpMethod: this.tripleBullet.bind(this),
+    };
     this.tripleFire = 3;
     playSound(POWERUPSOUND);
   }
 
+  tripleBullet(delta) {
+    if (this.tripleFire > 0) {
+      var newBulletLeft = new Bullet(this.game, this);
+      newBulletLeft.setDiagonal('left');
+      var newBulletRight = new Bullet(this.game, this);
+      newBulletRight.setDiagonal('right');
+      var newBulletNormal = new Bullet(this.game, this);
+      this.bullets.push(newBulletNormal);
+      this.bullets.push(newBulletLeft);
+      this.bullets.push(newBulletRight);
+      playSound(GUNSHOT);
+      this.tripleFire--;
+      if (this.tripleFire === 0) {
+        this.powerUpCollected = {
+          collected: false,
+          activated: false,
+          powerUpName: null,
+          powerUpMethod: null,
+        };
+      }
+    }
+  }
+
+  toxicFire(deltaTime) {
+    if (this.powerUpCollected.collected && this.powerUpCollected.activated) {
+      var newBullet = new ToxicBullet(this.game, this);
+      this.bullets.push(newBullet);
+      playSound(TOXICBULLETSOUND);
+      this.powerUpCollected = {
+        collected: false,
+        activated: false,
+        powerUpName: null,
+        powerUpMethod: null,
+      };
+    }
+  }
+
   automatic(deltaTime) {
-    if (this.powerUp) {
+    if (this.powerUpCollected.collected && this.powerUpCollected.activated) {
       this.powerUpTimer += deltaTime / 1000;
       if (this.powerUpTimer > this.powerUp.firerate) {
         var newBullet = new Bullet(this.game, this);
@@ -90,36 +191,74 @@ export default class Player {
         playSound(GUNSHOT);
         this.powerUpTimer = 0;
         this.powerUp.totalFire++;
+        this.canFire = false;
       }
       if (this.powerUp.totalFire > 8) {
         this.powerUp = { active: false, firerate: 0.8, totalFire: 0 };
+        this.powerUpCollected = {
+          collected: false,
+          activated: false,
+          powerUpName: null,
+          powerUpMethod: null,
+        };
+        this.canFire = true;
       }
     }
-    this.tripleFire = 0;
+  }
+
+  spawnPowerUp() {
+    if (
+      this.game.gamestate === GAMESTATE.RUNNING ||
+      this.game.gamestate === GAMESTATE.BOSSFIGHT
+    ) {
+      let randomNumber = Math.floor(Math.random() * 10) + 1;
+      if (randomNumber === 2) {
+        if (this.powerUpSpawn.active === false) {
+          var newAutoPowerUp = new AutomaticPowerUp(this.game, this);
+          this.powerUpSpawn = {
+            active: true,
+            powerUpName: POWERUPNAME.AUTOMATIC,
+            powerUpObject: newAutoPowerUp,
+          };
+        }
+      }
+      if (randomNumber === 1) {
+        if (this.powerUpSpawn.active === false) {
+          if (this.game.gamestate === GAMESTATE.RUNNING) {
+            var newToxicPowerUp = new ToxicPowerUp(this.game, this);
+            this.powerUpSpawn = {
+              active: true,
+              powerUpName: POWERUPNAME.TOXIC,
+              powerUpObject: newToxicPowerUp,
+            };
+          } else {
+            var newTriplePowerUp = new TriplePowerUp(this.game, this);
+            this.powerUpSpawn = {
+              active: true,
+              powerUpName: POWERUPNAME.TRIPLE,
+              powerUpObject: newTriplePowerUp,
+            };
+          }
+        }
+      }
+    }
   }
 
   fasterBullets() {
     this.bulletSpeedMultiplier = this.bulletSpeedMultiplier + 0.1;
   }
 
-  tripleBullet() {
-    var newBulletLeft = new Bullet(this.game, this);
-    newBulletLeft.setDiagonal('left');
-    var newBulletRight = new Bullet(this.game, this);
-    newBulletRight.setDiagonal('right');
-    this.bullets.push(newBulletLeft);
-    this.bullets.push(newBulletRight);
-    playSound(GUNSHOT);
-    this.spawnPowerUp();
-    this.tripleFire--;
-  }
-
   callZombie() {
-    if (this.position.x >= 200 && this.position.x <= 600) {
-      let randomnumber = Math.floor(Math.random() * 6) + 1;
-      if (randomnumber === 6) {
-        var newZombie = new Zombie(this, this.game);
-        this.zombies.push(newZombie);
+    if (
+      this.game.gamestate === GAMESTATE.RUNNING ||
+      this.game.gamestate === GAMESTATE.BOSSFIGHT
+    ) {
+      if (this.position.x >= 200 && this.position.x <= 600) {
+        let randomnumber = Math.floor(Math.random() * 8) + 1;
+        if (randomnumber === 6) {
+          var newZombie = new Zombie(this, this.game);
+          this.zombies.push(newZombie);
+        }
       }
     }
   }
@@ -153,22 +292,36 @@ export default class Player {
   draw(ctx) {
     ctx.drawImage(this.image, this.position.x, this.position.y, 50, 50);
     this.zombies.forEach((object) => object.draw(ctx));
-    if (this.powerUpSpawn !== null) {
-      this.powerUpSpawn.draw(ctx);
+    if (this.powerUpSpawn.active === true) {
+      this.powerUpSpawn.powerUpObject.draw(ctx);
     }
   }
 
   update(deltaTime) {
-    if (this.game.gamestate == GAMESTATE.PAUSED) {
+    if (
+      this.game.gamestate == GAMESTATE.PAUSED ||
+      this.game.gamestate == GAMESTATE.VICTORY ||
+      this.game.gamestate == GAMESTATE.CUTSCENE ||
+      this.game.gamestate == GAMESTATE.GAMEOVER
+    ) {
       return;
     }
-    if (this.powerUp.active) {
-      this.automatic(deltaTime);
+
+    if (
+      this.powerUpCollected.collected &&
+      this.powerUpCollected.powerUpName === POWERUPNAME.AUTOMATIC &&
+      this.powerUpCollected.activated
+    ) {
+      this.powerUpCollected.powerUpMethod(deltaTime);
     }
-    if (this.powerUpSpawn !== null) {
-      this.powerUpSpawn.update(deltaTime);
-      if (this.powerUpSpawn.active === false) {
-        this.powerUpSpawn = null;
+    if (this.powerUpSpawn.active) {
+      this.powerUpSpawn.powerUpObject.update(deltaTime);
+      if (this.powerUpSpawn.powerUpObject.markedForDeletion === true) {
+        this.powerUpSpawn = {
+          active: false,
+          powerUpName: null,
+          powerUpObject: null,
+        };
       }
     }
 

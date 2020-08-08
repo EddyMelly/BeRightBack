@@ -11,11 +11,9 @@ export default class InputHandler {
         case 39:
           player.moveRight();
           break;
-        case 27:
-          game.togglePause();
+        case 40:
+          player.automaticOn();
           break;
-          case 40:
-            player.automaticOn();
       }
     });
 

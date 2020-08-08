@@ -8,7 +8,7 @@
     <meta name="author" content="EdgarMelons">
     <link href="index.css" rel="stylesheet">
     <script src="https://unpkg.com/twitch-js@2.0.0-beta.33/dist/twitch.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.0.8/purify.min.js"></script>
+    <script type="text/javascript" src="./purify.min.js"></script>
     <script src="./index.js" type="module"></script>
     <script src="./TwitchApi.js" type="module"></script>
     <script src="./Game.js" type="module"></script>
@@ -20,6 +20,12 @@
    
     <img id="ceremorBanned" src="images/ceremorBanned.png" style="display:none"/>
     <img id="ceremorTense" src="images/ceremorTense.png" style="display:none"/>
+    <img id="textBack" src="images/textBack.png" style="display:none"/>
+    <img id="bossOver" src="images/bossOver.png" style="display:none"/>
+    <img id="tomatoBullet" src="images/tomatoBullet.png" style="display:none"/>
+    <img id="clipBullet" src="images/clipBullet.png" style="display:none"/>
+    <img id="bossLifeBack" src="images/bossLifeBack.png" style="display:none"/>
+    
 
     <img id="bitsImage" src="images/bitsImage.png" style="display:none"/>
     <img id="ceremorOver" src="images/ceremorOver.png" style="display:none"/>
@@ -38,6 +44,7 @@
     <img id="leftIcon" src="images/leftIcon.png" style="display:none"/>
     <img id="rightIcon" src="images/rightIcon.png" style="display:none"/>
     <img id="bulletIcon" src="images/bulletIcon.png" style="display:none"/>
+    <img id="toxicBullet" src="images/toxicBullet.png" style="display:none"/>
     <audio id="gunshot" src="./sounds/gunshot.wav"></audio>
     <audio id="footstep" src="./sounds/footstep.wav"></audio>
     <audio id="baserScream" src="./sounds/baserScream.wav"></audio>
@@ -46,6 +53,10 @@
     <audio id="victory" src="./sounds/victory.wav"></audio>
     <audio id="failure" src="./sounds/failure.wav"></audio>
     <audio id="powerUp" src="./sounds/powerUp.wav"></audio>
+    <audio id="bossAppear" src="./sounds/bossAppear.wav"></audio>
+    <audio id="tapping" src="./sounds/tapping.wav"></audio>
+    <audio id="toxicBulletSound" src="./sounds/toxicBullet.wav"></audio>
+    <audio id="bossScream" src="./sounds/bossScream.wav"></audio>
 
 
     
@@ -64,7 +75,7 @@
 
     <div id="PageHeader1" style="position:absolute;text-align:left;left:0px;top:0px;width:100%;height:92px;z-index:7777;">
         <div id="wb_title" style="position:absolute;left:360px;top:17px;width:486px;height:59px;text-align:center;z-index:1;">
-            <span style="color:#FBFBFB;font-family:'MS Sans Serif';font-size:48px;"><strong>Be Right Back</strong></span></div>
+            <span style="color:#FBFBFB;font-family:'MS Sans Serif';font-size:48px;"><strong>Be Right Back v2</strong></span></div>
         <div id="wb_Text1" style="position:absolute;left:830px;top:62px;width:42px;height:30px;text-align:center;z-index:3;"></div>
     </div>
     

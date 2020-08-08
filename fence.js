@@ -1,11 +1,12 @@
 import { detectCollision } from './collisionDetection.js';
-import EnemyBullet from './enemyBullet.js';
+import { EnemyBullet } from './enemyBullet.js';
 import { playSound } from './playSound.js';
 const FENCE2 = document.getElementById('fence2');
-const FENCE3 = document.getElementById('fence4');
-const FENCE4 = document.getElementById('fence5');
+const FENCE3 = document.getElementById('fence3');
+const FENCE4 = document.getElementById('fence4');
+const FENCE5 = document.getElementById('fence5');
 
-export default class Fence {
+export class Fence {
   constructor(game, position) {
     this.image = document.getElementById('fence');
     this.impact = document.getElementById('impact');
@@ -34,8 +35,12 @@ export default class Fence {
     if (this.markedForDeletion === false) {
       this.game.player.bullets.forEach((bullet) => {
         if (detectCollision(bullet, this)) {
-          bullet.markedForDeletion = true;
-          this.break(this.brokenStatus);
+          if (bullet.toxic) {
+            this.markedForDeletion = true;
+          } else {
+            bullet.markedForDeletion = true;
+            this.break(this.brokenStatus);
+          }
         }
       });
     }
@@ -69,12 +74,12 @@ export default class Fence {
         playSound(this.impact);
         break;
       case 2:
-        this.image = FENCE3;
+        this.image = FENCE4;
         this.brokenStatus++;
         playSound(this.impact);
         break;
       case 3:
-        this.image = FENCE4;
+        this.image = FENCE5;
         this.brokenStatus++;
         playSound(this.impact);
         break;
@@ -97,5 +102,60 @@ export default class Fence {
       this.height
     );
     this.bullets.forEach((object) => object.draw(ctx));
+  }
+}
+
+export class BossFence extends Fence {
+  constructor(game, position) {
+    super(game, position);
+    this.position = { x: position.x, y: position.y + 50 };
+  }
+
+  break(brokenStatus) {
+    switch (brokenStatus) {
+      case 1:
+        this.image = FENCE2;
+        this.brokenStatus++;
+        playSound(this.impact);
+        break;
+      case 2:
+        this.image = FENCE3;
+        this.brokenStatus++;
+        playSound(this.impact);
+        break;
+      case 3:
+        this.image = FENCE4;
+        this.brokenStatus++;
+        playSound(this.impact);
+        break;
+      case 4:
+        playSound(this.impact);
+        this.markedForDeletion = true;
+    }
+  }
+
+  update(deltaTime) {
+    if (this.markedForDeletion === false) {
+      this.game.player.bullets.forEach((bullet) => {
+        if (detectCollision(bullet, this)) {
+          if (bullet.toxic) {
+            this.markedForDeletion = true;
+          } else {
+            bullet.markedForDeletion = true;
+            this.break(this.brokenStatus);
+          }
+        }
+      });
+    }
+  }
+
+  draw(ctx) {
+    ctx.drawImage(
+      this.image,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+    );
   }
 }

@@ -2,7 +2,7 @@ import {
   zombieCollision,
   zombieBulletCollision,
 } from './collisionDetection.js';
-import {playSound} from './playSound.js';
+import { playSound } from './playSound.js';
 export default class Zombie {
   constructor(player, game) {
     this.player = player;
@@ -43,8 +43,6 @@ export default class Zombie {
     );
   }
 
-  
-
   update(deltaTime) {
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
@@ -61,8 +59,12 @@ export default class Zombie {
       this.player.bullets.forEach((bullet) => {
         if (zombieBulletCollision(this, bullet)) {
           playSound(this.zombieScream);
-          this.markedForDeletion = true;
-          bullet.markedForDeletion = true;
+          if (bullet.toxic) {
+            this.markedForDeletion = true;
+          } else {
+            this.markedForDeletion = true;
+            bullet.markedForDeletion = true;
+          }
         }
       });
     }

@@ -1,6 +1,4 @@
-//import { detectCollision } from './collisionDetection.js';
-
-export default class Bullet {
+export class Bullet {
   constructor(game, player) {
     this.gameWidth = game.gameWidth;
     this.gameHeight = game.gameHeight;
@@ -44,5 +42,24 @@ export default class Bullet {
     if (this.position.y + this.size > this.gameHeight || this.position.y < 0) {
       this.markedForDeletion = true;
     }
+  }
+}
+
+export class ToxicBullet extends Bullet {
+  constructor(game, player) {
+    super(game, player);
+    this.image = document.getElementById('toxicBullet');
+    this.speed = { x: 0, y: -2.5 };
+    this.toxic = true;
+    this.position = { x: player.position.x + 12, y: player.position.y - 15 };
+    this.size = 25;
+  }
+
+  draw(ctx) {
+    super.draw(ctx);
+  }
+
+  update(deltaTime) {
+    super.update(deltaTime);
   }
 }

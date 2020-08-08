@@ -7,11 +7,11 @@ const GAME_HEIGHT = 450;
 let lastTime = 0;
 var game;
 
-game = new Game(GAME_WIDTH, GAME_HEIGHT);
+game = new Game(GAME_WIDTH, GAME_HEIGHT, ctx);
 game.start();
 
 export function restart() {
-  game = new Game(GAME_WIDTH, GAME_HEIGHT);
+  game = new Game(GAME_WIDTH, GAME_HEIGHT, ctx);
   game.start();
 }
 
