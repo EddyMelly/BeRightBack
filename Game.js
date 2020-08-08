@@ -121,14 +121,14 @@ export default class Game {
         this.gameObjects = this.gameObjects.filter(
           (object) => !object.markedForDeletion
         );
-        if (this.fences.length <= 11 && this.fences.length > 7) {
+        if (this.fences.length <= 11 && this.fences.length > 5) {
           this.fences.forEach((fence) => {
             fence.intervalUpper = 27;
             fence.intervalLower = 11;
             fence.bulletSpeedModifier = 0.3;
           });
         }
-        if (this.fences.length <= 7) {
+        if (this.fences.length <= 5) {
           this.fences.forEach((fence) => {
             fence.intervalUpper = 20;
             fence.intervalLower = 10;
