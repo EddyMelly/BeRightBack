@@ -69,7 +69,7 @@ export default class Game {
         powerUpMethod: null,
       };
       this.player.powerUpTimer = 0;
-      this.player.bulletSpeedMultiplier = 2;
+      this.player.bulletSpeedMultiplier = 2.5;
       this.player.tripleFire = 0;
       this.player.hurtStatus = 1;
       this.player.zombies = [];
