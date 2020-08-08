@@ -93,7 +93,7 @@ export default class Player {
             this.powerUpCollected.activated = true;
             this.toxicFire();
             this.canFire = false;
-            his.spawnPowerUp();
+            this.spawnPowerUp();
             break;
           case POWERUPNAME.TRIPLE:
             this.powerUpCollected.activated = true;
