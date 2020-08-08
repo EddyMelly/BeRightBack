@@ -23,9 +23,9 @@ export class Bullet {
 
   setDiagonal(direction) {
     if (direction === 'left') {
-      this.speed = { x: -0.2, y: -1 };
+      this.speed = { x: -0.4, y: -1 };
     } else {
-      this.speed = { x: 0.2, y: -1 };
+      this.speed = { x: 0.4, y: -1 };
     }
   }
 
