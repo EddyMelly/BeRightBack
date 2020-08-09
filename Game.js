@@ -72,6 +72,7 @@ export default class Game {
       this.player.bulletSpeedMultiplier = 2.5;
       this.player.tripleFire = 0;
       this.player.hurtStatus = 1;
+      this.player.image = document.getElementById('ceremorOver');
       this.player.zombies = [];
       this.bossFightStarted = false;
     }
