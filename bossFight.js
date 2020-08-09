@@ -88,7 +88,7 @@ export default class BossFight {
         }
         break;
       case BOSSSTAGES.HIDINGSTAGE:
-        this.movementTimer += deltaTime / 500;
+        this.movementTimer += deltaTime / 250;
         if (this.movementTimer > 1) {
           this.hidingMovement(deltaTime);
           this.movementTimer = 0;
@@ -134,7 +134,7 @@ export default class BossFight {
     if (!this.fenceBuilt) {
       this.buildFence();
     } else {
-      if (this.clipTiming >= 3) {
+      if (this.clipTiming >= 6) {
         this.clipAttack();
         this.clipTiming = 0;
       }
@@ -159,7 +159,7 @@ export default class BossFight {
     if (!this.fenceBuilt) {
       var newFence = new BossFence(this.game, this.position);
       this.projectiles.push(newFence);
-      this.clipTiming = 2.8;
+      this.clipTiming = 5.7;
       this.fenceBuilt = true;
     }
   }
