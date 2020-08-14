@@ -30,7 +30,7 @@ export class PowerUp {
 export class AutomaticPowerUp extends PowerUp {
   constructor(game, player) {
     super(game, player);
-    this.image = document.getElementById('ceremorTense');
+    this.image = document.getElementById('whiteclaw');
     this.appearTimeLower = 0;
     this.appearTimeUpper = 20;
   }
@@ -54,7 +54,7 @@ export class AutomaticPowerUp extends PowerUp {
 export class ToxicPowerUp extends PowerUp {
   constructor(game, player) {
     super(game, player);
-    this.image = document.getElementById('ceremorTense');
+    this.image = document.getElementById('whiteclaw');
     this.appearTimeLower = 0;
     this.appearTimeUpper = 20;
   }
@@ -78,7 +78,7 @@ export class ToxicPowerUp extends PowerUp {
 export class TriplePowerUp extends PowerUp {
   constructor(game, player) {
     super(game, player);
-    this.image = document.getElementById('ceremorTense');
+    this.image = document.getElementById('whiteclaw');
     this.appearTimeLower = 0;
     this.appearTimeUpper = 20;
   }
