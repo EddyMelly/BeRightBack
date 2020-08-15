@@ -65,9 +65,12 @@ export default class Player {
       this.game.gamestate === GAMESTATE.RUNNING ||
       this.game.gamestate === GAMESTATE.BOSSFIGHT
     ) {
-      this.position.x = this.position.x - this.width;
+      if(this.position.x > 0){
+        this.position.x = this.position.x - this.width;
       this.canFire = true;
       playSound(FOOTSTEP);
+      }
+      
     }
   }
 
@@ -76,9 +79,12 @@ export default class Player {
       this.game.gamestate === GAMESTATE.RUNNING ||
       this.game.gamestate === GAMESTATE.BOSSFIGHT
     ) {
-      this.position.x = this.position.x + this.width;
+      if(this.position.x < this.game.gameWidth - 50){
+        this.position.x = this.position.x + this.width;
       this.canFire = true;
       playSound(FOOTSTEP);
+      }
+      
     }
   }
 
