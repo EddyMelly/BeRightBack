@@ -49,14 +49,18 @@ export default class TwitchApi {
       var clean_username = DOMPurify.sanitize(message.username, {
         ALLOWED_TAGS: ['b'],
       });
-      this.decideMessage(clean_message, message.tags['badgeInfo'], clean_username);
+      this.decideMessage(
+        clean_message,
+        message.tags['badgeInfo'],
+        clean_username
+      );
     });
   }
 
   decideMessage(cleanMessage, subBadge, cleanUserName) {
     var uppercaseMessage = cleanMessage.toUpperCase();
     var uppercaseUserName = cleanUserName.toUpperCase();
-    var upperCaseMessageClean = uppercaseMessage.replace(/ .*/,'');
+    var upperCaseMessageClean = uppercaseMessage.replace(/ .*/, '');
     if (this.subCheck(subBadge)) {
       if (upperCaseMessageClean === 'LEFT') {
         this.game.player.moveLeft();
@@ -74,10 +78,11 @@ export default class TwitchApi {
   }
 
   subCheck(subscriber) {
-    if (subscriber !== '') {
-      return true;
-    } else {
-      return false;
-    }
+    return true;
+    // if (subscriber !== '') {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   }
 }
